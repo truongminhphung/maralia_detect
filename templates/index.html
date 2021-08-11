@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>{% block tittle %}{% endblock %}</title>
+    <style>
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        input[type="radio"]+img {
+            cursor: pointer;
+        }
+
+        .container:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url("{{ url_for('static', filename='images/maralia.jpg') }}");
+            width: 100%;
+            height: 100%;
+            opacity: 0.18;
+            z-index: -1;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".im1").click(function () {
+                $(".im2").css("opacity", 0.3)
+                $(".im3").css("opacity", 0.3);
+            });
+            $(".im2").click(function () {
+                $(".im1").css("opacity", 0.3)
+                $(".im3").css("opacity", 0.3);
+            });
+            $(".im3").click(function () {
+                $(".im1").css("opacity", 0.3)
+                $(".im2").css("opacity", 0.3);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container .bg-image ">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+            </li>
+        </ul>
+        <h1 class="mb-3 text-center text-dark">Malaria Detection Demo</h1>
+        <p class="text-dark text-center">Welcome to my Website!</p>
+        <p class="text-dark">Click to the specific image then detect button to run</p>
+        <form action="{{ url_for('detect') }}" method="post">
+            <div class="row">
+                <div class="col">
+                    <label for="img1" class="im1 mb-3">
+                        <input type="radio" name="img1" id="img1" value="para1.png">
+                        <img src="{{ url_for('static', filename='images/para1.png') }}" alt="para">
+                    </label>
+                </div>
+
+                <div class="col">
+                    <div class="col">
+                        <label for="img2" class="im2 mb-3">
+                            <input type="radio" name="img1" id="img2" value="para2.png">
+                            <img src="{{ url_for('static', filename='images/para1.png') }}" alt="para">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="col">
+                        <label for="img3" class="im3 mb-3">
+                            <input type="radio" name="img1" id="img3" value="uninfected.png">
+                            <img src="{{ url_for('static', filename='images/uninfected.png') }}" alt="uninifected">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <input type="submit" value="Detect" class="btn btn-primary"
+                data-loading-text="<iclass='fa fa-spinner fa-spin'></i> Loading...">
+        </form>
+        <p class="result mt-3 text-primary">Result: {{ result }}</p>
+    </div>
+</body>
+
+</html>
