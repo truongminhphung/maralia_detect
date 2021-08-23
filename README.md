@@ -7,7 +7,6 @@
 
 ## Demo
 
-Insert gif or link to demo
 ![Homepage](https://raw.githubusercontent.com/truongminhphung/maralia_detect/master/demo/index.png)
 
 ![Demo](https://raw.githubusercontent.com/truongminhphung/maralia_detect/master/demo/demo.gif)
